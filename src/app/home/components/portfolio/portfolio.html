@@ -6,148 +6,99 @@
         <div class="col-lg-12">
           <div class="text-center">
             <h2 data-aos="heading-show" class="text_background">
-              My Projects
+              Mes Projets
               <span class="heading_background">Portfolio</span>
             </h2>
-            <p class="m-0">There are many variations of passages of Lorem Ipsum.</p>
+            <p class="m-0">Découvrez mes derniers projets et réalisations en développement logiciel</p>
           </div>
         </div>
       </div>
     </div>
 
     <div class="section-content flex-grow-1">
-      <div class="row portfolio-items">
 
-        <div class="col-xl-4 col-lg-4 col-md-6 mb-2 mt-4 frontenddevelopment">
-          <div class="portfolio-item">
-            <a href="https://via.placeholder.com/510x600" class="portfolio-single portfolio-image">
-              <div class="item-box">
-                <div class="item-image">
-                  <img src="https://via.placeholder.com/510x600" width="510" height="600" class="d-block img-fluid mx-auto" alt="">
-                </div>
-                <div class="item-details d-flex align-items-center">
-                  <div class="item-details-ins text-center w-100">
-                    <div class="mb-2">
-                      <span class="mbri-photos"></span>
+      @if (loading()) {
+        <div class="text-center mt-5"><p>Chargement des projets...</p></div>
+      }
+
+      @if (!loading()) {
+        <div class="row portfolio-items">
+
+          <!-- Projets dynamiques depuis l'API -->
+          @for (projet of projects(); track projet.id) {
+            <div class="col-xl-6 col-lg-6 col-md-6 mb-2 mt-4">
+              <div class="portfolio-item">
+                <a [href]="projet.lien || '#'" target="_blank" class="portfolio-single">
+                  <div class="item-box">
+                    <div class="item-image d-flex align-items-center justify-content-center"
+                         style="background: linear-gradient(135deg, #092E20 0%, #0A3D2B 100%); min-height: 400px;">
+                      @if (projet.image) {
+                        <img [src]="getImageUrl(projet.image)" [alt]="projet.titre"
+                             style="width:100%; height:100%; object-fit:cover;">
+                      } @else {
+                        <span class="mbri-code" style="font-size: 150px; color: white; opacity: 0.9;"></span>
+                      }
                     </div>
-                    <h3>Project Title</h3>
-                    <p>Category</p>
+                    <div class="item-details d-flex align-items-center">
+                      <div class="item-details-ins text-center w-100">
+                        <h3>{{ projet.titre }}</h3>
+                        <p>{{ projet.resume }}</p>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                </a>
               </div>
-            </a>
-          </div>
+            </div>
+          }
+
+          <!-- Projets statiques si l'API est vide ou en erreur -->
+          @if (projects().length === 0) {
+            <div class="col-xl-6 col-lg-6 col-md-6 mb-2 mt-4 backenddevelopment">
+              <div class="portfolio-item">
+                <a href="https://github.com/Eren-73/Java_Gestion_Etudiant" target="_blank" class="portfolio-single">
+                  <div class="item-box">
+                    <div class="item-image d-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #ED8B00 0%, #FF9D1F 100%); min-height: 400px;">
+                      <span class="mbri-users" style="font-size: 150px; color: white; opacity: 0.9;"></span>
+                    </div>
+                    <div class="item-details d-flex align-items-center">
+                      <div class="item-details-ins text-center w-100">
+                        <h3>Gestion Étudiant</h3>
+                        <p>Desktop - Java</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 mb-2 mt-4">
+              <div class="portfolio-item">
+                <a href="https://github.com/Eren-73/Convertisseur-de-devise-GUI-" target="_blank" class="portfolio-single">
+                  <div class="item-box">
+                    <div class="item-image d-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #3776AB 0%, #4A8BC2 100%); min-height: 400px;">
+                      <span class="mbri-change-style" style="font-size: 150px; color: white; opacity: 0.9;"></span>
+                    </div>
+                    <div class="item-details d-flex align-items-center">
+                      <div class="item-details-ins text-center w-100">
+                        <h3>Convertisseur de Devise</h3>
+                        <p>GUI - PySide</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          }
+
         </div>
 
-        <div class="col-xl-4 col-lg-4 col-md-6 mb-2 mt-4 backenddevelopment">
-          <div class="portfolio-item">
-            <a href="https://www.youtube.com/watch?time_continue=85&v=oC1m-dTFX6g" class="portfolio-single iframe_popup">
-              <div class="item-box">
-                <div class="item-image">
-                  <img src="https://via.placeholder.com/510x600" width="510" height="600" class="d-block img-fluid mx-auto" alt="">
-                </div>
-                <div class="item-details d-flex align-items-center">
-                  <div class="item-details-ins text-center w-100">
-                    <div class="mb-2">
-                      <span class="mbri-video-play"></span>
-                    </div>
-                    <h3>Project Title</h3>
-                    <p>Category</p>
-                  </div>
-                </div>
-              </div>
+        <div class="row">
+          <div class="col-12 text-center mt-5">
+            <a href="https://github.com/Eren-73?tab=repositories" target="_blank" class="btn btn-outline-primary">
+              <span><i class="fab fa-github"></i></span> Voir Plus sur GitHub
             </a>
           </div>
         </div>
-
-        <div class="col-xl-4 col-lg-4 col-md-6 mb-2 mt-4 seo">
-          <div class="portfolio-item">
-            <a href="https://via.placeholder.com/510x600" class="portfolio-single portfolio-image">
-              <div class="item-box">
-                <div class="item-image">
-                  <img src="https://via.placeholder.com/510x600" width="510" height="600" class="d-block img-fluid mx-auto" alt="">
-                </div>
-                <div class="item-details d-flex align-items-center">
-                  <div class="item-details-ins text-center w-100">
-                    <div class="mb-2">
-                      <span class="mbri-photos"></span>
-                    </div>
-                    <h3>Project Title</h3>
-                    <p>Category</p>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="col-xl-4 col-lg-4 col-md-6 mb-2 mt-4 backenddevelopment">
-          <div class="portfolio-item ">
-            <a href="https://themeforest.net/" target="_blank" class="portfolio-single">
-              <div class="item-box">
-                <div class="item-image">
-                  <img src="https://via.placeholder.com/510x600" width="510" height="600" class="d-block img-fluid mx-auto" alt="">
-                </div>
-                <div class="item-details d-flex align-items-center">
-                  <div class="item-details-ins text-center w-100">
-                    <div class="mb-2">
-                      <span class="mbri-link"></span>
-                    </div>
-                    <h3>Project Title</h3>
-                    <p>Category</p>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="col-xl-4 col-lg-4 col-md-6 mb-2 mt-4 frontenddevelopment">
-          <div class="portfolio-item">
-            <a href="https://via.placeholder.com/510x600" class="portfolio-single portfolio-image">
-              <div class="item-box">
-                <div class="item-image">
-                  <img src="https://via.placeholder.com/510x600" width="510" height="600" class="d-block img-fluid mx-auto" alt="">
-                </div>
-                <div class="item-details d-flex align-items-center">
-                  <div class="item-details-ins text-center w-100">
-                    <div class="mb-2">
-                      <span class="mbri-photos"></span>
-                    </div>
-                    <h3>Project Title</h3>
-                    <p>Category</p>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="col-xl-4 col-lg-4 col-md-6 mb-2 mt-4 frontenddevelopment">
-          <div class="portfolio-item">
-            <a href="https://via.placeholder.com/510x600" class="portfolio-single portfolio-image">
-              <div class="item-box">
-                <div class="item-image">
-                  <img src="https://via.placeholder.com/510x600" width="510" height="600" class="d-block img-fluid mx-auto" alt="">
-                </div>
-                <div class="item-details d-flex align-items-center">
-                  <div class="item-details-ins"></div>
-                  <div class="item-details-ins text-center w-100">
-                    <div class="mb-2">
-                      <span class="mbri-photos"></span>
-                    </div>
-                    <h3>Project Title</h3>
-                    <p>Category</p>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-12 text-center mt-5">
-          <a href="#" class="btn btn-outline-primary"><span><i class="fab fa-dribbble"></i></span> See More</a>
-        </div>
-      </div>
+      }
 
     </div>
   </div>

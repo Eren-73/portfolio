@@ -1,0 +1,46 @@
+// src/app/home/components/introduction/introduction.scss
+// Styles pour la section hero — photo de profil stylée, sans background
+// Pourquoi: met la photo en valeur avec un rendu moderne et épuré
+// Relevant: introduction.html, introduction.ts
+
+.hero-photo-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-photo {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+
+  // Supprime le fond blanc en fusionnant avec le fond sombre de la page
+  mix-blend-mode: multiply;
+
+  // Fondu bas pour intégrer avec le fond sombre
+  mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+}
+
+// Fallback si pas de photo
+.hero-photo-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  i {
+    font-size: 180px;
+    color: rgba(255, 255, 255, 0.05);
+  }
+}

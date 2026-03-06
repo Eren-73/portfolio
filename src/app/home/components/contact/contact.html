@@ -4,11 +4,11 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="text-center">
-            <h2  data-aos="heading-show" class="text_background">
+            <h2 data-aos="heading-show" class="text_background">
               Get in Touch
               <span class="heading_background">Contact Me</span>
             </h2>
-            <p class="m-0">It is a long established fact that a reader will be distracted by the readable content</p>
+            <p class="m-0">N'hésitez pas à me contacter pour n'importe quel projet</p>
           </div>
         </div>
       </div>
@@ -22,8 +22,8 @@
               <span class="mbri-letter"></span>
             </div>
             <div class="contact-details mt-2">
-              <h5>Email Us</h5>
-              <p><a href="mailto:kevinmiller@alb.com">kevinmiller@alb.com</a></p>
+              <h5>Email</h5>
+              <p><a href="mailto:alhousein73@gmail.com">alhousein73@gmail.com</a></p>
             </div>
           </div>
         </div>
@@ -33,8 +33,8 @@
               <span class="mbri-mobile"></span>
             </div>
             <div class="contact-details mt-2">
-              <h5>Call</h5>
-              <p><a href="tel:+1000123456789">+1 xxx-888-7887</a></p>
+              <h5>Téléphone</h5>
+              <p><a href="tel:+2250586284129">05 86 28 41 29</a></p>
             </div>
           </div>
         </div>
@@ -44,46 +44,59 @@
               <span class="mbri-map-pin"></span>
             </div>
             <div class="contact-details mt-2">
-              <h5>Visit</h5>
-              <p>New York, USA</p>
+              <h5>Localisation</h5>
+              <p>Côte d'Ivoire</p>
             </div>
           </div>
         </div>
       </div>
 
-
       <div class="row mt-5">
         <div class="col-lg-12">
-          <form action="php/form.php" method="post" id="contact-form">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" id="contact-form">
             <div class="row">
               <div class="col-lg-6 mt-3">
                 <div class="form-group">
-                  <input type="text" name="name" id="name" class="form-control" autocomplete="off" required>
+                  <input type="text" formControlName="nom_complet" id="name" class="form-control" autocomplete="off">
                   <label>Full Name</label>
                 </div>
               </div>
               <div class="col-lg-6 mt-3">
                 <div class="form-group">
-                  <input type="email" name="email" id="email" class="form-control" autocomplete="off" required>
+                  <input type="email" formControlName="email" id="email" class="form-control" autocomplete="off">
                   <label>Email</label>
                 </div>
               </div>
               <div class="col-lg-12 mt-3">
                 <div class="form-group">
-                  <input type="text" name="subject" id="subject" class="form-control" autocomplete="off" required>
+                  <input type="text" formControlName="objet" id="subject" class="form-control" autocomplete="off">
                   <label>Subject</label>
                 </div>
               </div>
               <div class="col-lg-12 mt-3">
                 <div class="form-group">
-                  <textarea name="text" id="text"  rows="6" class="form-control" required></textarea>
+                  <textarea formControlName="message" id="text" rows="6" class="form-control"></textarea>
                   <label>Message</label>
                 </div>
               </div>
+
+              <!-- Messages de feedback -->
+              @if (success()) {
+                <div class="col-lg-12 mt-3">
+                  <div class="alert alert-success">Message envoyé avec succès !</div>
+                </div>
+              }
+              @if (error()) {
+                <div class="col-lg-12 mt-3">
+                  <div class="alert alert-danger">Erreur lors de l'envoi. Réessayez.</div>
+                </div>
+              }
+
               <div class="col-lg-12 mt-3">
                 <div class="form-group mb-0 text-right">
-                  <button type="submit" id="contact-btn" class="btn btn-outline-primary btn-bg">
-                    Send Message
+                  <button type="submit" id="contact-btn" class="btn btn-outline-primary btn-bg"
+                          [disabled]="form.invalid || sending()">
+                    {{ sending() ? 'Envoi en cours...' : 'Send Message' }}
                   </button>
                 </div>
               </div>
@@ -93,7 +106,5 @@
       </div>
 
     </div>
-
-
   </div>
 </section>

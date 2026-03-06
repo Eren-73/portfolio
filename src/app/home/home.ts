@@ -10,7 +10,6 @@ import {Portfolio} from './components/portfolio/portfolio';
 import {Projet} from './components/projet/projet';
 import {Resume} from './components/resume/resume';
 import {Testimonial} from './components/testimonial/testimonial';
-import {Blog} from './components/blog/blog';
 import {Contact} from './components/contact/contact';
 import {Footer} from '../shared/components/footer/footer';
 
@@ -28,7 +27,6 @@ import {Footer} from '../shared/components/footer/footer';
     Projet,
     Resume,
     Testimonial,
-    Blog,
     Contact,
     Footer
   ],

@@ -6,73 +6,86 @@
         <div class="col-lg-12">
           <div class="text-center">
             <h2 data-aos="heading-show" class="text_background">
-              What I Do
+              Mes Compétences
               <span class="heading_background">Services</span>
             </h2>
-            <p class="m-0">It is a long established fact that a reader will be distracted by the readable content</p>
+            <p class="m-0">Technologies et services que je maîtrise pour créer des solutions innovantes</p>
           </div>
         </div>
       </div>
     </div>
 
     <div class="section-content flex-grow-1">
-      <div class="row">
-        <div class="col-lg-4 col-md-6 mt-4 mb-2">
-          <div class="service-single text-left p-5">
-            <div class="service-icon">
-              <span class="mbri-database"></span>
-            </div>
-            <h3 class="my-3">Development</h3>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 mt-4 mb-2">
-          <div class="service-single text-left p-5">
-            <div class="service-icon">
-              <span class="mbri-tablet"></span>
-            </div>
-            <h3 class="my-3">Responsive</h3>
-            <p>It is a long established fact that a reader will be distracted by the readable content</p>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 mt-4 mb-2">
-          <div class="service-single text-left p-5">
-            <div class="service-icon">
-              <span class="mbri-hot-cup"></span>
-            </div>
-            <h3 class="my-3">UI/UX Design</h3>
-            <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 mt-4 mb-2">
-          <div class="service-single text-left p-5">
-            <div class="service-icon">
-              <span class="mbri-layers"></span>
-            </div>
-            <h3 class="my-3">User Friendly</h3>
-            <p>Contrary to popular belief, Lorem Ipsum is not simply random text.</p>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 mt-4 mb-2">
-          <div class="service-single text-left p-5">
-            <div class="service-icon">
-              <span class="mbri-hearth"></span>
-            </div>
-            <h3 class="my-3">Lovely</h3>
-            <p>It is a long established fact that a reader will be distracted</p>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 mt-4 mb-2">
-          <div class="service-single text-left p-5">
-            <div class="service-icon">
-              <span class="mbri-rocket"></span>
-            </div>
-            <h3 class="my-3">Bootstrap 4</h3>
-            <p>Lorem ipsum dolor sit amet, consetetur </p>
-          </div>
-        </div>
-      </div>
-    </div>
 
+      @if (loading()) {
+        <div class="text-center mt-5"><p>Chargement...</p></div>
+      }
+
+      @if (!loading()) {
+        <div class="row">
+
+          <!-- Services dynamiques depuis l'API -->
+          @for (service of services(); track service.id) {
+            <div class="col-lg-4 col-md-6 mt-4 mb-2">
+              <div class="service-single text-left p-5">
+                <div class="service-icon">
+                  <span [class]="getIcon(service.type_service)"></span>
+                </div>
+                <h3 class="my-3">{{ service.nom }}</h3>
+                <p>{{ service.detail }}</p>
+              </div>
+            </div>
+          }
+
+          <!-- Contenu statique si l'API ne retourne rien -->
+          @if (services().length === 0) {
+            <div class="col-lg-4 col-md-6 mt-4 mb-2">
+              <div class="service-single text-left p-5">
+                <div class="service-icon"><span class="mbri-database"></span></div>
+                <h3 class="my-3">Django Backend</h3>
+                <p>Développement d'API REST et d'applications web robustes avec Django et Python.</p>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mt-4 mb-2">
+              <div class="service-single text-left p-5">
+                <div class="service-icon"><span class="mbri-sites"></span></div>
+                <h3 class="my-3">Frontend Angular</h3>
+                <p>Création d'interfaces utilisateur modernes et réactives avec Angular.</p>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mt-4 mb-2">
+              <div class="service-single text-left p-5">
+                <div class="service-icon"><span class="mbri-code"></span></div>
+                <h3 class="my-3">HTML & CSS</h3>
+                <p>Développement de sites web responsives avec HTML5, CSS3 et design moderne.</p>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mt-4 mb-2">
+              <div class="service-single text-left p-5">
+                <div class="service-icon"><span class="mbri-layers"></span></div>
+                <h3 class="my-3">Applications Desktop</h3>
+                <p>Développement d'applications desktop avec Java et Python (PySide).</p>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mt-4 mb-2">
+              <div class="service-single text-left p-5">
+                <div class="service-icon"><span class="mbri-cloud"></span></div>
+                <h3 class="my-3">API REST</h3>
+                <p>Conception et développement d'API RESTful sécurisées et performantes.</p>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mt-4 mb-2">
+              <div class="service-single text-left p-5">
+                <div class="service-icon"><span class="mbri-setting2"></span></div>
+                <h3 class="my-3">Solutions Innovantes</h3>
+                <p>Création de solutions logicielles personnalisées pour résoudre vos défis.</p>
+              </div>
+            </div>
+          }
+
+        </div>
+      }
+
+    </div>
   </div>
 </section>

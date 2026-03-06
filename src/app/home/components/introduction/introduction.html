@@ -1,18 +1,25 @@
 <section class="home d-flex" id="home">
 
-  <!--Start Background Image-->
+  <!--Photo de profil à droite-->
   <div class="mono-background">
     <div class="mono-background-inner" data-aos-duration="1200" data-aos-delay="450" data-aos="fade-left">
-      <img src="https://via.placeholder.com/1405x937" width="1405" height="937" class="img-align-center" alt="">
+      @if (user()?.photo_profil) {
+        <div class="hero-photo-wrapper">
+          <img [src]="getPhotoUrl(user()!.photo_profil!)" [alt]="user()!.prenom" class="hero-photo">
+        </div>
+      } @else {
+        <div class="hero-photo-placeholder">
+          <i class="fas fa-user"></i>
+        </div>
+      }
     </div>
   </div>
-  <!--End Background Image-->
 
   <div class="container introduction text-left" >
-    <p class="welcome_text mb-4" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="150">I'm a <span class="welcome-text-type" data-options="Web Developer, Graphic Designer" ></span></p>
+    <p class="welcome_text mb-4" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="150">I'm a <span class="welcome-text-type" data-options="Développeur Logiciel, Créateur de Solutions Innovantes" ></span></p>
     <div id="parallax-scene" class="mb-4" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="300">
       <div class="heading-zone">
-        <h1>Kevin Miller</h1>
+        <h1>{{ user() ? user()!.prenom + ' ' + user()!.nom : 'Traore Husseni' }}</h1>
       </div>
     </div>
     <div data-aos="fade-up" data-aos-duration="1200" data-aos-delay="450">

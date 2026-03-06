@@ -13,76 +13,135 @@
         </div>
       </div>
     </div>
+
     <div class="section-content flex-grow-1">
-      <div class="row align-items-center">
-        <div class="col-md-8 mt-5 mt-md-0">
-          <h3 class="m-0">I'm Kevin Miller</h3>
-          <p class="my-4">Hi! There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="about-info mb-2">
-                <span class="desc">Full Name:</span>
-                <span>Kevin Miller</span>
-              </div>
+
+      @if (loading()) {
+        <div class="text-center mt-5">
+          <p>Chargement...</p>
+        </div>
+      }
+
+      @if (!loading() && user()) {
+        <div class="row align-items-center">
+
+          <!-- Photo de profil -->
+          @if (user()!.photo_profil) {
+            <div class="col-md-4 text-center mt-5 mt-md-0">
+              <img [src]="getPhotoUrl(user()!.photo_profil!)"
+                   [alt]="user()!.prenom + ' ' + user()!.nom"
+                   class="img-fluid rounded-circle"
+                   style="max-width: 250px; border: 4px solid #e8537a;">
             </div>
-            <div class="col-lg-6">
-              <div class="about-info mb-2">
-                <span class="desc">Age:</span>
-                <span>32 Years Old</span>
+          }
+
+          <!-- Texte: col-md-8 si photo présente, sinon col-md-12 -->
+          <div [class]="user()!.photo_profil ? 'col-md-8 mt-5 mt-md-0' : 'col-md-12 mt-5 mt-md-0'">
+            <h3 class="m-0">Je suis {{ user()!.prenom }} {{ user()!.nom }}</h3>
+            <p class="my-4">{{ user()!.description }}</p>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="about-info mb-2">
+                  <span class="desc">Nom Complet:</span>
+                  <span>{{ user()!.prenom }} {{ user()!.nom }}</span>
+                </div>
               </div>
+              <div class="col-lg-6">
+                <div class="about-info mb-2">
+                  <span class="desc">Âge:</span>
+                  <span>{{ user()!.age }} ans</span>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="about-info mb-2">
+                  <span class="desc">Email:</span>
+                  <span>{{ user()!.email }}</span>
+                </div>
+              </div>
+              @if (user()!.telephone) {
+                <div class="col-lg-6">
+                  <div class="about-info mb-2">
+                    <span class="desc">Téléphone:</span>
+                    <span>{{ user()!.telephone }}</span>
+                  </div>
+                </div>
+              }
             </div>
-            <div class="col-lg-6">
-              <div class="about-info mb-2">
-                <span class="desc">Experience:</span>
-                <span>20 years</span>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="about-info mb-2">
-                <span class="desc">Email:</span>
-                <span>kevinmiller@klb.com</span>
-              </div>
-            </div>
-          </div>
-          <div class="button_and_social my-4">
-            <div class="row justify-content-center align-items-center">
-              <div class="col-xl-6">
-                <a href="#" class="btn btn-outline-primary btn-lg">Download CV</a>
-              </div>
-              <div class="col-xl-6">
-                <ul class="social-icons list-inline mt-4 mt-xl-0">
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-facebook-f"></i>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-linkedin-in"></i>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-pinterest-p"></i>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-git"></i>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-tumblr"></i>
-                    </a>
-                  </li>
-                </ul>
+            <div class="button_and_social my-4">
+              <div class="row justify-content-center align-items-center">
+                <div class="col-xl-6">
+                  @if (user()!.lien_cv) {
+                    <a [href]="user()!.lien_cv" download class="btn btn-outline-primary btn-lg">Télécharger CV</a>
+                  }
+                </div>
+                <div class="col-xl-6">
+                  <ul class="social-icons list-inline mt-4 mt-xl-0">
+                    @for (social of socials(); track social.id) {
+                      <li class="list-inline-item">
+                        <a [href]="social.lien" target="_blank" rel="noopener noreferrer">
+                          <i [class]="getIcon(social.nom_plateforme)"></i>
+                        </a>
+                      </li>
+                    }
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      }
 
+      @if (error()) {
+        <!-- Fallback statique si l'API est inaccessible -->
+        <div class="row align-items-center">
+          <div class="col-md-8 mt-5 mt-md-0">
+            <h3 class="m-0">Je suis Traore Husseni</h3>
+            <p class="my-4">Bonjour ! Je suis un développeur logiciel passionné par la création de solutions innovantes.</p>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="about-info mb-2">
+                  <span class="desc">Nom Complet:</span>
+                  <span>Traore Husseni</span>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="about-info mb-2">
+                  <span class="desc">Âge:</span>
+                  <span>19 ans</span>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="about-info mb-2">
+                  <span class="desc">Email:</span>
+                  <span>alhousein73@gmail.com</span>
+                </div>
+              </div>
+            </div>
+            <div class="button_and_social my-4">
+              <div class="row justify-content-center align-items-center">
+                <div class="col-xl-6">
+                  <a href="./assets/cv/cv-husseni-traore.pdf" download class="btn btn-outline-primary btn-lg">Télécharger CV</a>
+                </div>
+                <div class="col-xl-6">
+                  <ul class="social-icons list-inline mt-4 mt-xl-0">
+                    <li class="list-inline-item">
+                      <a href="https://www.linkedin.com/in/husseni-traoré-134291290" target="_blank">
+                        <i class="fab fa-linkedin-in"></i>
+                      </a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a href="https://github.com/Eren-73" target="_blank">
+                        <i class="fab fa-github"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+
+    </div>
   </div>
 </section>

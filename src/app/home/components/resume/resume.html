@@ -1,117 +1,102 @@
 <section class="resume" id="resume">
-
-  <div class="container d-flex flex-column justify-content-between h-100 ">
+  <div class="container d-flex flex-column justify-content-between h-100">
 
     <div class="section-title flex-grow-1">
       <div class="row">
         <div class="col-lg-12">
           <div class="text-center">
-            <h2  data-aos="heading-show" class="text_background">
-              My Experience
+            <h2 data-aos="heading-show" class="text_background">
+              Mon Parcours
               <span class="heading_background">Resume</span>
             </h2>
-            <p class="m-0">If you are going to use a passage of Lorem Ipsum</p>
+            <p class="m-0">Mon parcours éducatif et professionnel en développement logiciel</p>
           </div>
         </div>
       </div>
     </div>
 
     <div class="section-content flex-grow-1">
-      <div class="row mt-4">
-        <div class="col-lg-6">
-          <h3 class="mb-4">Education</h3>
-          <ul class="list-inline resume-list">
-            <li>
-              <h4 class="mb-2">Univercity of Boston, Computer Science</h4>
-              <span class="time">2010 - 2016</span>
-              <p class="my-2">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna</p>
-            </li>
-            <li>
-              <h4 class="mb-2">Master Computer Science</h4>
-              <span class="time">2016 - 2018</span>
-              <p class="my-2">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna</p>
-            </li>
-          </ul>
-        </div>
 
-        <div class="col-lg-6">
-          <h3 class="mb-4">Experience</h3>
-          <ul class="list-inline resume-list">
-            <li>
-              <h4 class="mb-2">UI/UX Designer</h4>
-              <span class="time">2010 - 2016</span>
-              <p class="my-2">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna</p>
-            </li>
-            <li>
-              <h4 class="mb-2">Web Developer</h4>
-              <span class="time">2016 - 2018</span>
-              <p class="my-2">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna</p>
-            </li>
-          </ul>
-        </div>
+      @if (loading()) {
+        <div class="text-center mt-5"><p>Chargement...</p></div>
+      }
 
+      @if (!loading()) {
 
-      </div>
-      <div class="row mt-5">
-        <div class="col-lg-6">
-          <div class="skill d-flex flex-row pr-4 pr-sm-3 px-3 mb-4">
-            <div class="skill-progress flex-grow-1">
-              <div class="progresss-info d-flex flex-row justify-content-between mt-2 mb-1">
-                <span>JavaScript</span>
-                <span class="text-right progress-percent">75%</span>
-              </div>
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" data-percent="75" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
+        <!-- Bouton CV -->
+        @if (cvUrl()) {
+          <div class="text-center mb-4">
+            <a [href]="cvUrl()!" target="_blank" class="btn btn-outline-primary btn-lg me-3">
+              <i class="fas fa-eye me-2"></i>Voir le CV
+            </a>
+            <a [href]="cvUrl()!" download class="btn btn-primary btn-lg">
+              <i class="fas fa-download me-2"></i>Télécharger le CV
+            </a>
+          </div>
+        }
+
+        <!-- Éducation + Expérience (même structure visuelle qu'avant) -->
+        <div class="row mt-4">
+          <div class="col-lg-6">
+            <h3 class="mb-4">Éducation</h3>
+            <ul class="list-inline resume-list">
+              @for (exp of formations(); track exp.id) {
+                <li>
+                  <h4 class="mb-2">{{ exp.role }}</h4>
+                  <span class="time">{{ exp.entreprise }} · {{ formatPeriode(exp) }}</span>
+                  <p class="my-2">{{ exp.description }}</p>
+                </li>
+              }
+              @if (formations().length === 0) {
+                <li><p class="text-muted">Ajoutez une formation depuis l'admin Django.</p></li>
+              }
+            </ul>
           </div>
 
-        </div>
-        <div class="col-lg-6">
-          <div class="skill d-flex flex-row pr-4 pr-sm-3 px-3 mb-4">
-            <div class="skill-progress flex-grow-1">
-              <div class="progresss-info d-flex flex-row justify-content-between mt-2 mb-1">
-                <span>Wordpress</span>
-                <span class="text-right progress-percent">90%</span>
-              </div>
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" data-percent="90" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
+          <div class="col-lg-6">
+            <h3 class="mb-4">Expérience</h3>
+            <ul class="list-inline resume-list">
+              @for (exp of expPro(); track exp.id) {
+                <li>
+                  <h4 class="mb-2">{{ exp.role }}</h4>
+                  <span class="time">{{ exp.entreprise ? exp.entreprise + ' · ' : '' }}{{ exp.type_contrat }} · {{ formatPeriode(exp) }}</span>
+                  <p class="my-2">{{ exp.description }}</p>
+                </li>
+              }
+              @if (expPro().length === 0) {
+                <li><p class="text-muted">Ajoutez une expérience depuis l'admin Django.</p></li>
+              }
+            </ul>
           </div>
-
         </div>
-        <div class="col-lg-6">
-          <div class="skill d-flex flex-row pr-4 pr-sm-3 px-3 mb-4">
-            <div class="skill-progress flex-grow-1">
-              <div class="progresss-info d-flex flex-row justify-content-between mt-2 mb-1">
-                <span>HTML 5</span>
-                <span class="text-right progress-percent">95%</span>
+
+        <!-- Barres de compétences (même style qu'avant, niveau géré depuis l'admin) -->
+        @if (services().length > 0) {
+          <div class="row mt-5">
+            @for (service of services(); track service.id) {
+              <div class="col-lg-6">
+                <div class="skill d-flex flex-row pr-4 pr-sm-3 px-3 mb-4">
+                  <div class="skill-progress flex-grow-1">
+                    <div class="progresss-info d-flex flex-row justify-content-between mt-2 mb-1">
+                      <span>{{ service.nom }}</span>
+                      <span class="text-right progress-percent">{{ service.niveau }}%</span>
+                    </div>
+                    <div class="progress">
+                      <div class="progress-bar" role="progressbar"
+                           [attr.data-percent]="service.niveau"
+                           [attr.aria-valuenow]="service.niveau"
+                           aria-valuemin="0" aria-valuemax="100">
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" data-percent="95" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
+            }
           </div>
+        }
 
-        </div>
-        <div class="col-lg-6">
-          <div class="skill d-flex flex-row pr-4 pr-sm-3 px-3 mb-4">
-            <div class="skill-progress flex-grow-1">
-              <div class="progresss-info d-flex flex-row justify-content-between mt-2 mb-1">
-                <span>CSS 3</span>
-                <span class="text-right progress-percent">85%</span>
-              </div>
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" data-percent="85" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-          </div>
+      }
 
-        </div>
-      </div>
     </div>
-
   </div>
-
 </section>
