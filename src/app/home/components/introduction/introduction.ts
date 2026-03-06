@@ -8,6 +8,7 @@ import { inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../../service/UsersService';
 import { IUser } from '../../../shared/models/IUsers';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-introduction',
@@ -34,6 +35,6 @@ export class Introduction implements OnInit {
   getPhotoUrl(path: string): string {
     if (path.startsWith('http')) return path;
     const clean = path.startsWith('/') ? path : '/' + path;
-    return 'http://localhost:8000' + clean;
+    return environment.mediaUrl + clean;
   }
 }

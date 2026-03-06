@@ -10,6 +10,7 @@ import { UserService } from '../../../service/UsersService';
 import { SocialService } from '../../../service/SocialService';
 import { IUser } from '../../../shared/models/IUsers';
 import { ISocial } from '../../../shared/models/ISocial';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-about',
@@ -49,7 +50,7 @@ export class About implements OnInit {
   getPhotoUrl(path: string): string {
     if (path.startsWith('http')) return path;
     const clean = path.startsWith('/') ? path : '/' + path;
-    return 'http://localhost:8000' + clean;
+    return environment.mediaUrl + clean;
   }
 
   ngOnInit(): void {

@@ -6,14 +6,15 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BaseService {
   private http = inject(HttpClient);
-  // URL de base de l'API Django (sans slash final — chaque endpoint l'ajoute)
-  private readonly apiUrl = 'http://localhost:8000/api';
+  // URL de base de l'API Django — différente selon dev ou prod
+  private readonly apiUrl = environment.apiUrl;
 
   // GET — récupère des données (liste ou objet unique)
   // Gère les query params proprement: "experiences?utilisateur=2" → "/api/experiences/?utilisateur=2"

@@ -12,6 +12,7 @@ import { UserService } from '../../../service/UsersService';
 import { IExperience } from '../../../shared/models/IExperiences';
 import { IService } from '../../../shared/models/IServices';
 import { IUser } from '../../../shared/models/IUsers';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-resume',
@@ -60,7 +61,7 @@ export class Resume implements OnInit {
   cvUrl = computed(() => {
     const u = this.user();
     if (!u) return null;
-    if (u.fichier_cv) return 'http://localhost:8000' + (u.fichier_cv.startsWith('/') ? u.fichier_cv : '/' + u.fichier_cv);
+    if (u.fichier_cv) return environment.mediaUrl + (u.fichier_cv.startsWith('/') ? u.fichier_cv : '/' + u.fichier_cv);
     if (u.lien_cv) return u.lien_cv;
     return null;
   });

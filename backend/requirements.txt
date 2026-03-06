@@ -1,4 +1,15 @@
-django==5.0.0
-djangorestframework==3.14.0
-django-cors-headers==4.3.1
-Pillow==10.2.0
+# backend/requirements.txt
+# Dépendances Python du projet Django
+# Pourquoi: permet à Railway de réinstaller tous les packages en prod
+# Relevant: settings.py, Procfile
+
+Django==6.0.1
+djangorestframework==3.16.1
+django-cors-headers==4.9.0
+Pillow==12.1.0
+
+# Production
+gunicorn==25.1.0
+whitenoise==6.12.0
+dj-database-url==3.1.2
+psycopg2-binary==2.9.11

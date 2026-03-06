@@ -8,6 +8,7 @@ import { inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProjectService } from '../../../service/ProjectsService';
 import { IProject } from '../../../shared/models/IProjects';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-portfolio',
@@ -44,7 +45,7 @@ export class Portfolio implements OnInit {
   getImageUrl(path: string): string {
     if (path.startsWith('http')) return path;
     const clean = path.startsWith('/') ? path : '/' + path;
-    return 'http://localhost:8000' + clean;
+    return environment.mediaUrl + clean;
   }
 }
 
