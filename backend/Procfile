@@ -3,4 +3,4 @@
 # Pourquoi: Railway lit ce fichier pour savoir comment lancer l'app
 # Relevant: requirements.txt, config/wsgi.py
 
-web: gunicorn config.wsgi --log-file -
+web: python manage.py migrate && gunicorn config.wsgi --log-file -
