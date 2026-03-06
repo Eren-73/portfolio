@@ -5,8 +5,6 @@
 
 export const environment = {
   production: true,
-  // ⚠️ À METTRE À JOUR après le déploiement Railway
-  // Exemple: 'https://portfolio-api-production.up.railway.app/api'
-  apiUrl: 'https://VOTRE_URL_RAILWAY.up.railway.app/api',
-  mediaUrl: 'https://VOTRE_URL_RAILWAY.up.railway.app',
+  apiUrl: 'https://portfolio-production-0ae3.up.railway.app/api',
+  mediaUrl: 'https://portfolio-production-0ae3.up.railway.app',
 };
