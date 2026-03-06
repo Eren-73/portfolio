@@ -3,5 +3,4 @@
 # Pourquoi: Railway lit ce fichier pour savoir comment lancer l'app
 # Relevant: requirements.txt, config/wsgi.py
 
-web: python manage.py migrate && python manage.py createsuperuser --noinput --username husseni --email alhousein73@gmail.com
- || true && gunicorn config.wsgi --log-file -
+web: python manage.py migrate && python manage.py createsuperuser --noinput --username $DJANGO_SUPERUSER_USERNAME --email $DJANGO_SUPERUSER_EMAIL || true && gunicorn config.wsgi --workers 1 --timeout 120 --log-file -
